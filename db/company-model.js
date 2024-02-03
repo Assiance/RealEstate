@@ -38,12 +38,19 @@ const Company = sequelize.define('company', {
   }
 });
 
+//connects company and address models
+//Agents has a one to one relationship with properties
 Company.hasOne(Address);
 
+//connects company and agent models
+//company has a one to many relationship with agents
 Company.hasMany(Agents);
 Agents.belongsTo(Company);
 
+//connects company and properties models
+//company has a one to many relationship with properties
 Company.hasMany(Properties);
 Properties.belongsTo(Company);
 
+//exports company model
 module.exports = Company;

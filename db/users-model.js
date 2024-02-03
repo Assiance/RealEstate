@@ -2,7 +2,7 @@ const { sequelize } = require('./data-connections');
 const { DataTypes } = require('./sequelize')
 const bcrypt = require('bcrypt');
 
-//create the user table
+//creates the user table
 const Users = sequelize.define('users', {
   // Model attributes are defined here
   id: {
@@ -47,4 +47,6 @@ const Users = sequelize.define('users', {
     }
   }
 });
+
+//exports the users model
 module.exports = Users;

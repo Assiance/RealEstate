@@ -10,10 +10,10 @@ const { userRoutes } = require('./routes/user-route')
 
 
 app.use(bodyParser.json())
-app.use('/', properyRoutes)
+/*app.use('/', properyRoutes)
 app.use('/', agentRoutes)
 app.use('/', companyRoutes)
-app.use('/', userRoutes)
+app.use('/', userRoutes)*/
 
 
 const PORT = 4000;
