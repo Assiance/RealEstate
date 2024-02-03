@@ -4,22 +4,23 @@ const bcrypt = require('bcrypt');
 
 //creates the user table
 const Users = sequelize.define('users', {
-  // Model attributes are defined here
+  //creates the ID column for the user table
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
-
+//creates the firstName column for the user table
   },
   firstName: {
     type: DataTypes.STRING(64),
     allowNull: false
   },
+  //creates the lastName column for the user table
   lastName: {
     type: DataTypes.STRING(64),
-    // allowNull defaults to true
     allowNull: false
   },
+  //creates the email column for the user table
   email: {
     type: DataTypes.STRING(256),
     unique: true,
@@ -27,10 +28,12 @@ const Users = sequelize.define('users', {
       isEmail: true
     }
   },
+  //creates the password column for the user table
   password: {
     type: DataTypes.STRING(256),
     allowNull: false
   },
+  //creates the phone column for the user table
   phone: {
     type: DataTypes.INTEGER,
     allowNull: false

@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
+const sequelize = require('./db/data-connections');
 
-
-const sequelize = new Sequelize('real_estate', 'root', 'password', {
+const sequelize = new Sequelize('Real_Estate', 'root', 'password', {
   host: 'localhost',
   dialect: 'mysql'
 });
@@ -19,4 +19,4 @@ const connectToDb = async () => {
   }
 }
 
-module.exports = { sequelize, connectToDb }
+module.exports = {sequelize, connectToDb}
