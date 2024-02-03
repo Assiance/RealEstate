@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./data-connections');
+const { sequelize } = require('./data-connections');
 
 //creates the address table
 const Address = sequelize.define('addresses', {

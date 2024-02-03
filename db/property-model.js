@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./data-connection');
+const { sequelize } = require('./data-connections');
 const Address = require('./address-model');
 
 //creates the property table

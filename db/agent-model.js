@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./data-connections');
+const { sequelize } = require('./data-connections');
 const Properties = require('./property-model');
 
 //creates the Agent table 
