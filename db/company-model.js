@@ -31,10 +31,6 @@ const Company = sequelize.define('company', {
   year_founded: {
     type: DataTypes.INTEGER,
     allowNull: false
-  },
-  address: {
-    type: DataTypes.STRING(256),
-    unique: true
   }
 });
 
