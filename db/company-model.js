@@ -5,7 +5,7 @@ const Address = require('./address-model');
 const { DataTypes } = require('./sequelize')
 
 
-const Companies = sequelize.define('company', {
+const Companies = sequelize.define('companies', {
   // Model attributes are defined here
   id: {
     type: DataTypes.INTEGER,
