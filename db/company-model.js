@@ -4,6 +4,7 @@ const Agents = require('./agent-model');
 const Address = require('./address-model');
 const { DataTypes } = require('./sequelize')
 
+
 const Companies = sequelize.define('company', {
   // Model attributes are defined here
   id: {
@@ -12,15 +13,18 @@ const Companies = sequelize.define('company', {
     primaryKey: true
 
   },
+  //creates the name column for the company table
   name: {
     type: DataTypes.STRING(64),
     allowNull: false
 
   },
+  //creates the phone column for the company table
   phone: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  //creates the email column for the company table
   email: {
     type: DataTypes.STRING(256),
     validate: {
@@ -28,6 +32,7 @@ const Companies = sequelize.define('company', {
     },
     unique: true
   },
+  //creates the year_founded column for the company table
   year_founded: {
     type: DataTypes.INTEGER,
     allowNull: false
