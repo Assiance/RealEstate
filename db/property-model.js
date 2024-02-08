@@ -60,7 +60,8 @@ const Properties = sequelize.define('properties', {
 });
 
 //shows the relationship between the properties table and address table
-Properties.hasOne(Address);
+Address.hasOne(Properties);
+Properties.belongsTo(Address);
 
 //exports the properties model
 module.exports = Properties;

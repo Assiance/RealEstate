@@ -8,7 +8,7 @@ const sequelize = new Sequelize('real_estate', 'root', 'password', {
 
 const connectToDb = async () => {
   try {
-    sequelize.sync({ force: false });
+    sequelize.sync({ force: true });
 
     await sequelize.authenticate();
     console.log("Successfully connected to our db")

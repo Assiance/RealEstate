@@ -11,6 +11,7 @@ validateToken = (req, res, next) => {
 
   token = token.replace("Bearer ", "");
 
+  //verfies token and looks for secret key if doesnt exist sends error
   jwt.verify(token, secretKey, function (err, decoded) {
     if (err) {
       res.status(401).send();
@@ -21,6 +22,7 @@ validateToken = (req, res, next) => {
   });
 }
 
+//uses info to create a token the expires in an hour the returns token
 function createToken(user) {
   const token = jwt.sign({
     id: user.id,

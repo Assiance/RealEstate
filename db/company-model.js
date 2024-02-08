@@ -4,7 +4,7 @@ const Agents = require('./agent-model');
 const Address = require('./address-model');
 const { DataTypes } = require('./sequelize')
 
-const Company = sequelize.define('company', {
+const Companies = sequelize.define('company', {
   // Model attributes are defined here
   id: {
     type: DataTypes.INTEGER,
@@ -36,17 +36,17 @@ const Company = sequelize.define('company', {
 
 //connects company and address models
 //Agents has a one to one relationship with properties
-Company.hasOne(Address);
+Companies.hasOne(Address);
 
 //connects company and agent models
 //company has a one to many relationship with agents
-Company.hasMany(Agents);
-Agents.belongsTo(Company);
+Companies.hasMany(Agents);
+Agents.belongsTo(Companies);
 
 //connects company and properties models
 //company has a one to many relationship with properties
-Company.hasMany(Properties);
-Properties.belongsTo(Company);
+Companies.hasMany(Properties);
+Properties.belongsTo(Companies);
 
 //exports company model
-module.exports = Company;
+module.exports = Companies;
