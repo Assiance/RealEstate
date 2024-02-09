@@ -1,6 +1,7 @@
 const { sequelize } = require('./data-connections');
-const { DataTypes } = require('./sequelize')
+const { DataTypes } = require('sequelize')
 const bcrypt = require('bcrypt');
+
 
 //creates the user table
 const Users = sequelize.define('users', {
@@ -9,14 +10,14 @@ const Users = sequelize.define('users', {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
-//creates the firstName column for the user table
   },
-  firstName: {
+  //creates the firstName column for the user table
+  first_name: {
     type: DataTypes.STRING(64),
     allowNull: false
   },
   //creates the lastName column for the user table
-  lastName: {
+  last_name: {
     type: DataTypes.STRING(64),
     allowNull: false
   },
@@ -33,11 +34,7 @@ const Users = sequelize.define('users', {
     type: DataTypes.STRING(256),
     allowNull: false
   },
-  //creates the phone column for the user table
-  phone: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
+
 }, {
   hooks: {
     // Hook that runs whenever User is created or updated

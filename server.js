@@ -6,14 +6,14 @@ const { connectToDb } = require('./db/data-connections');
 const { properyRoutes } = require('./routes/property-route');
 const agentRoutes = require('./routes/agent-route');
 const { companyRoutes } = require('./routes/company-route');
-const { userRoutes } = require('./routes/user-route');
+const  userRoutes  = require('./routes/user-route');
 
 
 app.use(bodyParser.json())
-//app.use('/property', properyRoutes)
+//app.use('/properties', properyRoutes)
 app.use('/agents', agentRoutes);
-//app.use('/company', companyRoutes)
-//app.use('/users', userRoutes)
+//app.use('/companies', companyRoutes)
+app.use('/users', userRoutes)
 
 
 const PORT = 4000;
