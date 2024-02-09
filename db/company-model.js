@@ -2,7 +2,7 @@ const { sequelize } = require('./data-connections');
 const Properties = require('./property-model');
 const Agents = require('./agent-model');
 const Address = require('./address-model');
-const { DataTypes } = require('./sequelize')
+const { DataTypes } = require('sequelize')
 
 
 const Companies = sequelize.define('companies', {

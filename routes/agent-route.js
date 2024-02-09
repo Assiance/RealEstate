@@ -3,7 +3,7 @@ const Agents = require('../db/agent-model');//imports the agent file
 const Properties = require('../db/property-model');//imports the property file
 const { validateToken } = require('../utils/authentication');//imports the validation token file
 const router = express.Router();
-const Companies = require('../db/company-model');
+const Company = require('../db/company-model');
 
 //this GET finds all agents in the database
 router.get('/', validateToken, async (req, res) => {
@@ -98,15 +98,16 @@ router.delete('/:id', validateToken, async (req, res) => {
 
 router.get('/:agentsId/companies', async (req, res) => {
   try {
-    const companies = await Companies.findAll({
+    const company = await Company.findAll({
       where: {
         agentsId: req.params.agentsId
       }
     });
-    res.send(companies);
+    res.send(company);
   } catch (error) {
     console.log(error);
     res.status(500).send(`Internal Server Error ${error}`)
   }
-})
+});
+
 module.exports = router;

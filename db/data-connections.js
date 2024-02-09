@@ -8,7 +8,7 @@ const sequelize = new Sequelize('real_estate', 'root', 'password', {
 
 const connectToDb = async () => {
   try {
-    sequelize.sync({ force: true });
+    sequelize.sync({ force: false });
 
     await sequelize.authenticate();
     console.log("Successfully connected to our db")
@@ -19,4 +19,4 @@ const connectToDb = async () => {
   }
 }
 
-module.exports = {sequelize, connectToDb}
+module.exports = { sequelize, connectToDb }
