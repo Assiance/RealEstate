@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user-route');
 
 
 app.use(bodyParser.json())
-//app.use('/property', properyRoutes)
+//app.use('/properties', properyRoutes)
 app.use('/agents', agentRoutes);
 app.use('/companies', companyRoutes)
 app.use('/users', userRoutes)
