@@ -14,7 +14,7 @@ const Agents = sequelize.define('agents', {
   //creates the first name column for the agents table
   first_name: {
     type: DataTypes.STRING(64),
-    allowNull: true
+    allowNull: false
   },
   //creates the last name column for the agents table
   last_name: {
@@ -24,27 +24,27 @@ const Agents = sequelize.define('agents', {
   //creates the city column for the agents table
   city: {
     type: DataTypes.STRING(64),
-    allowNull: false,
+    allowNull: false
   },
   //creates the state column for the agents table
   state: {
     type: DataTypes.STRING(64),
-    allowNull: false,
+    allowNull: false
   },
   //creates the phone # column for the agents table
   phone: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.STRING(10),
+    allowNull: false
   },
   //creates the years of experience column for the agents table
   years_experience: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(64),
     allowNull: false
   },
   //creates the about column for the agents table
   about: {
     type: DataTypes.STRING(1024),
-    allowNull: false
+    allowNull: true
   },
   //creates and validates the email column for the agents table
   email: {
@@ -52,7 +52,8 @@ const Agents = sequelize.define('agents', {
     validate: {
       isEmail: true
     },
-    unique: true
+    unique: true,
+    allowNull: false
   }
 });
 

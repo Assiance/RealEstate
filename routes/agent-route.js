@@ -3,7 +3,7 @@ const Agents = require('../db/agent-model');//imports the agent file
 const Properties = require('../db/property-model');//imports the property file
 const { validateToken } = require('../utils/authentication');//imports the validation token file
 const router = express.Router();
-const Company = require('../db/company-model');
+const Companies = require('../db/company-model');
 
 //this GET finds all agents in the database
 router.get('/', validateToken, async (req, res) => {
@@ -54,16 +54,20 @@ router.post('/', validateToken, async (req, res) => {
       res.status(400).send('phone name must have a value.')
       return;
     }
+    if (!req.body.phone == 10) {
+      res.status(400).send("Phone # must be 10 digits");
+      return;
+    }
     if (!req.body.yearsOfExperience) {
-      res.status(400).send('First name must have a value.')
+      res.status(400).send('Years of experience must have a value.')
       return;
     }
     if (!req.body.about) {
-      res.status(400).send('First name must have a value.')
+      res.status(400).send('About must have a value.')
       return;
     }
     if (!req.body.email) {
-      res.status(400).send('First name must have a value.')
+      res.status(400).send('Email must have a value.')
       return;
     }
     let newAgents = await Agents.create({
@@ -74,7 +78,8 @@ router.post('/', validateToken, async (req, res) => {
       phone: req.body.phone,
       years_experience: req.body.yearsOfExperience,
       about: req.body.about,
-      email: req.body.email
+      email: req.body.email,
+      companyId: req.body.companyId
     });
     res.status(201).send(newAgents);
   } catch (error) {
@@ -83,6 +88,7 @@ router.post('/', validateToken, async (req, res) => {
   }
 })
 
+//this DELETE erases the agent info
 router.delete('/:id', validateToken, async (req, res) => {
   try {
     const deleteAgent = await Agents.findByPk(req.params.id);
@@ -96,18 +102,23 @@ router.delete('/:id', validateToken, async (req, res) => {
   }
 })
 
+//GET gets the company info from the agent ID
 router.get('/:agentsId/companies', async (req, res) => {
   try {
-    const company = await Company.findAll({
-      where: {
-        agentsId: req.params.agentsId
-      }
+    const findAgent = await Agents.findByPk(req.params.agentsId, {
+      include: [
+        {
+          model: Companies
+        }
+      ]
     });
-    res.send(company);
+    //sends back the company info (only)
+    res.send(findAgent.company);
   } catch (error) {
     console.log(error);
     res.status(500).send(`Internal Server Error ${error}`)
   }
 });
 
+//exports agent router
 module.exports = router;

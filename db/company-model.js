@@ -21,7 +21,7 @@ const Companies = sequelize.define('companies', {
   },
   //creates the phone column for the company table
   phone: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(10),
     allowNull: false
   },
   //creates the email column for the company table
@@ -30,18 +30,20 @@ const Companies = sequelize.define('companies', {
     validate: {
       isEmail: true
     },
-    unique: true
+    unique: true,
+    allowNull: false
   },
   //creates the year_founded column for the company table
   year_founded: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(4),
     allowNull: false
   }
 });
 
 //connects company and address models
 //Agents has a one to one relationship with properties
-Companies.hasOne(Address);
+Address.hasOne(Companies);
+Companies.belongsTo(Address);
 
 //connects company and agent models
 //company has a one to many relationship with agents

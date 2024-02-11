@@ -18,30 +18,34 @@ const Address = sequelize.define('addresses', {
   //creates the city column for the property table
   city: {
     type: DataTypes.STRING(64),
-    allowNull: false,
+    allowNull: false
   },
   //creates the state column for the property table
   state: {
     type: DataTypes.STRING(64),
-    allowNull: false,
+    allowNull: false
   },
   //creates the country column for the address table
   country: {
     type: DataTypes.STRING(64),
-    allowNull: false,
+    allowNull: false
   },
   //creates the apt # column for the address table
   apt_number: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.STRING(4),
+    allowNull: true,
     unique: true
   },
   //creates the suite # column for the address table
   suite_number: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.STRING(4),
+    allowNull: true
   },
-})
+  zipcode: {
+    type: DataTypes.STRING(5),
+    allowNull: false
+  }
+});
 
 //exports the address model
 module.exports = Address;

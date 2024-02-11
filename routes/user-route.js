@@ -34,12 +34,18 @@ router.post('/', async (req, res) => {
             res.status(400).send("Password must exist");
             return;
         }
+        //phone # not equal to 10 send error
+        if (!req.body.phone.length == 10) {
+            res.status(400).send("Phone # must be 10 digitss");
+            return;
+        }
         // when created first name,last name, email, and password
         const userToCreate = {
             first_name: req.body.firstName,
             last_name: req.body.lastName,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            phone: req.body.phone
         };
 
         const createdUser = await Users.create(userToCreate);
