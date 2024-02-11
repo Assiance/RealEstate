@@ -27,14 +27,19 @@ const Users = sequelize.define('users', {
     unique: true,
     validate: {
       isEmail: true
-    }
+    },
+    allowNull: false
   },
   //creates the password column for the user table
   password: {
     type: DataTypes.STRING(256),
     allowNull: false
   },
-
+  //creates the phone column for the user table
+  phone: {
+    type: DataTypes.STRING(10),
+    allowNull: false
+  },
 }, {
   hooks: {
     // Hook that runs whenever User is created or updated
