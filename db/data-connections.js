@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('real_estate', 'root', 'password', {
   host: 'localhost',
   dialect: 'mysql'
-});
+});  
 
 const connectToDb = async () => {
   try {

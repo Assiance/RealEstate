@@ -1,11 +1,10 @@
 const express = require('express');
 const Address = require('../db/address-model');//imports the agent file
 const Properties = require('../db/property-model');//imports the property file
-//const Users = require('../db/users-model');//imports the user file
-const validator = require('validator');
+const { validateToken } = require('../utils/authentication');//imports the validation token file
 const router = express.Router();
 
-router.post('/properties',/*validateToken,*/ async (req, res) => {
+router.post('/',validateToken, async (req, res) => {
   try {
     if (!req.body.num_of_bedrooms) {
       res.status(400).send("num_of_bedrooms must be a value")
@@ -67,14 +66,42 @@ router.post('/properties',/*validateToken,*/ async (req, res) => {
   }
 });
 
-router.get('/properties/:id', async (req, res) => {
+router.get('/:id', validateToken , async (req, res) => {
   try {
-    const toFindProperties = await Properties.findByPk(req.params.id)
+    const toFindProperties = await Properties.findAll({
+      where:{
+        id: req.params.id
+      }, 
+      include : Address
+
+    })
     if (!toFindProperties) {
-      res.status(404).send("List is not found")
+      res.status(404).send("Properties is not found")
       return;
     }
     res.send(toFindProperties)
+    return Address;
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(`Internal Server Error ${error}`)
+  }
+})
+router.get('/([\?])type', validateToken , async (req, res) =>{
+  try {
+    const toFindProperties = await Properties.findOne({
+      where:{
+        id: req.params.id
+      }, 
+      include : Address
+
+    })
+    if (!toFindProperties) {
+      res.status(404).send("Properties is not found")
+      return;
+    }
+    res.send(toFindProperties)
+    return Address;
 
   } catch (error) {
     console.log(error)
@@ -82,7 +109,8 @@ router.get('/properties/:id', async (req, res) => {
   }
 })
 
-router.put('/properties/:id',/*validateToken,*/ async (req, res) => {
+
+router.put('/:id', validateToken , async (req, res) => {
   try {
     if (!req.body.num_of_bedrooms) {
       res.status(400).send("num_of_bedrooms must be a value")
@@ -146,7 +174,7 @@ router.put('/properties/:id',/*validateToken,*/ async (req, res) => {
 
   }
 });
-router.delete('/properties/:id',/*validateToken,*/ async (req, res) => {
+router.delete('/properties/:id', validateToken , async (req, res) => {
 
   try {
     const propertiesToDelete = await Properties.findByPk(req.params.id);
