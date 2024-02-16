@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
             return;
         }
         //phone # not equal to 10 send error
-        if (!req.body.phone.length == 10) {
+        if (req.body.phone.length != 10) {
             res.status(400).send("Phone # must be 10 digitss");
             return;
         }

@@ -35,8 +35,8 @@ const Users = sequelize.define('users', {
     type: DataTypes.STRING(256),
     allowNull: false
   },
-  //creates the phone column for the user table
-  phone: {
+   //creates the phone column for the user table
+   phone: {
     type: DataTypes.STRING(10),
     allowNull: false
   },

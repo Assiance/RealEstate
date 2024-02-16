@@ -53,9 +53,66 @@ router.post('/',validateToken, async (req, res) => {
       property_type: req.body.property_type,
       sales_price: req.body.sales_price,
       lot_size: req.body.lot_size,
-      stories: req.body.stories
+      stories: req.body.stories,
+      agentId: req.body.agentId,
+      companyId: req.body.companyId
+        
     })
-    res.status(201).send(createProperties)
+    if (!req.body.street) {
+      res.status(400).send('Street must have a value.')
+      return;
+    }
+    if (!req.body.city) {
+      res.status(400).send('City must have a value.')
+      return;
+    }
+    if (!req.body.state) {
+      res.status(400).send('State must have a value.')
+      return;
+    }
+    if (!req.body.country) {
+      res.status(400).send('Country must have a value.')
+      return;
+    }
+    if (!req.body.zipcode) {
+      res.status(400).send('Zipcode must have a value.')
+      return;
+    }
+    if (!req.body.suiteNumber) {
+      res.status(400).send('Suite number must have a value.')
+      return;
+    }
+    const newCompanyAddress = await Address.create({
+      street: req.body.street,
+      city: req.body.city,
+      state: req.body.state,
+      country: req.body.country,
+      zipcode: req.body.zipcode,
+      suite_number: req.body.suiteNumber
+    });
+
+    const newProperties = {
+      num_of_bedrooms: createProperties.num_of_bedrooms,
+      num_of_bathrooms: createProperties.num_of_bathrooms,
+      has_HOA: createProperties.has_HOA,
+      square_feet: createProperties.square_feet,
+      year_built: createProperties.year_built,
+      property_type: createProperties.property_type,
+      sales_price: createProperties.sales_price,
+      lot_size: createProperties.lot_size,
+      stories: createProperties.stories,
+      agentId: createProperties.agentId,
+      companyId: createProperties.companyId,
+      address: {
+        street: newCompanyAddress.street,
+        city: newCompanyAddress.city,
+        state: newCompanyAddress.state,
+        country: newCompanyAddress.country,
+        zipcode: newCompanyAddress.zipcode,
+        suite_number: newCompanyAddress.suiteNumber
+      }
+    }
+    res.status(201).send(newProperties)
 
 
   } catch (error) {
@@ -68,9 +125,9 @@ router.post('/',validateToken, async (req, res) => {
 
 router.get('/:id', validateToken , async (req, res) => {
   try {
-    const toFindProperties = await Properties.findAll({
+    const toFindProperties = await Properties.findByPk({
       where:{
-        id: req.params.id
+        id: req.body.id
       }, 
       include : Address
 
@@ -80,18 +137,30 @@ router.get('/:id', validateToken , async (req, res) => {
       return;
     }
     res.send(toFindProperties)
-    return Address;
+    
 
   } catch (error) {
     console.log(error)
     res.status(500).send(`Internal Server Error ${error}`)
   }
 })
-router.get('/([\?])type', validateToken , async (req, res) =>{
+router.get('/([?])', validateToken , async (req, res) =>{
+  //example is in company route
   try {
     const toFindProperties = await Properties.findOne({
       where:{
-        id: req.params.id
+        num_of_bedrooms: req.query.num_of_bedrooms,
+        num_of_bathrooms: req.query.num_of_bathrooms,
+        has_HOA: req.query.has_HOA,
+        square_feet: req.query.square_feet,
+        year_built: req.query.year_built,
+        property_type: req.query.property_type,
+        sales_price: req.query.sales_price,
+        lot_size: req.query.lot_size,
+        stories: req.query.stories,
+        agentId: req.query.agentId,
+        companyId: req.query.companyId
+        
       }, 
       include : Address
 
@@ -101,7 +170,7 @@ router.get('/([\?])type', validateToken , async (req, res) =>{
       return;
     }
     res.send(toFindProperties)
-    return Address;
+    
 
   } catch (error) {
     console.log(error)
@@ -166,6 +235,7 @@ router.put('/:id', validateToken , async (req, res) => {
       toFindProperties.stories = req.body.stories
 
     await toFindProperties.save();
+    res.status(200).send(toFindProperties)
 
   } catch (error) {
     console.log(error)
@@ -180,6 +250,7 @@ router.delete('/properties/:id', validateToken , async (req, res) => {
     const propertiesToDelete = await Properties.findByPk(req.params.id);
     if (propertiesToDelete) {
       await propertiesToDelete.destroy();
+      res.status(200).send(propertiesToDelete)
 
     }
 
