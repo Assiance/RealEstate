@@ -127,7 +127,7 @@ router.get('/:id', validateToken , async (req, res) => {
   try {
     const toFindProperties = await Properties.findByPk({
       where:{
-        id: req.body.id
+        id: req.params.id
       }, 
       include : Address
 
